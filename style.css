@@ -121,6 +121,15 @@ body {
     font-weight: 700;
     margin: 0 0 12px 0;
     color: var(--text-light);
+    text-align: center;
+}
+
+.error-message {
+    color: #E74C3C;
+    font-size: 12pt;
+    text-align: center;
+    margin-top: -12px; /* Adjust spacing */
+    margin-bottom: 12px;
 }
 
 .station-cards {

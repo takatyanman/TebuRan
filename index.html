@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="station-list-container">
-                    <p class="list-header">駅を選択してください</p>
+                    <p class="list-header" id="station-selection-guide">出発駅を選択してください</p>
                     <div class="station-cards">
                         <div class="station-card" data-station-name="東京駅" data-locker-status="available" data-shower-status="available">
                             <div class="station-card-main">
@@ -73,6 +73,7 @@
                     </div>
                 </div>
                 
+                <p class="error-message" id="selection-error-message"></p>
                 <button class="btn-primary" id="to-schedule-btn" disabled>スケジュール選択へ</button>
 
             </div>
@@ -218,6 +219,8 @@
         const destinationInput = document.getElementById('destination-station');
         const stationCards = document.querySelectorAll('.station-card');
         const toScheduleBtn = document.getElementById('to-schedule-btn');
+        const stationSelectionGuide = document.getElementById('station-selection-guide');
+        const selectionErrorMessage = document.getElementById('selection-error-message');
 
         const screenG1 = document.getElementById('screen-g1');
         const screenG2 = document.getElementById('screen-g2');
@@ -225,7 +228,17 @@
         let selectedOrigin = null;
         let selectedDestination = null;
 
-        function updateButtonState() {
+        function updateUI() {
+            // Update selection guide
+            if (!selectedOrigin) {
+                stationSelectionGuide.textContent = '出発駅を選択してください';
+            } else if (!selectedDestination) {
+                stationSelectionGuide.textContent = '到着駅を選択してください';
+            } else {
+                stationSelectionGuide.textContent = '選択完了';
+            }
+
+            // Update button state and error message
             if (selectedOrigin && selectedDestination) {
                 const originLocker = selectedOrigin.dataset.lockerStatus;
                 const originShower = selectedOrigin.dataset.showerStatus;
@@ -237,12 +250,33 @@
 
                 if (isOriginOk && isDestOk) {
                     toScheduleBtn.disabled = false;
+                    selectionErrorMessage.textContent = '';
                 } else {
                     toScheduleBtn.disabled = true;
+                    let errorMessage = '選択した駅の施設に空きがないため、進めません。';
+                    if (!isOriginOk && !isDestOk) {
+                        errorMessage = `出発駅(${selectedOrigin.dataset.stationName})と到着駅(${selectedDestination.dataset.stationName})の施設に空きがありません。`;
+                    } else if (!isOriginOk) {
+                        errorMessage = `出発駅(${selectedOrigin.dataset.stationName})の施設に空きがありません。`;
+                    } else if (!isDestOk) {
+                        errorMessage = `到着駅(${selectedDestination.dataset.stationName})の施設に空きがありません。`;
+                    }
+                    selectionErrorMessage.textContent = errorMessage;
                 }
             } else {
                 toScheduleBtn.disabled = true;
+                selectionErrorMessage.textContent = '出発駅と到着駅を選択してください。';
             }
+
+            // Update card selection visual
+            stationCards.forEach(card => {
+                card.classList.remove('selected-origin', 'selected-destination');
+                if (card === selectedOrigin) {
+                    card.classList.add('selected-origin');
+                } else if (card === selectedDestination) {
+                    card.classList.add('selected-destination');
+                }
+            });
         }
 
         function updateIconColors() {
@@ -264,24 +298,18 @@
                     // 1. Select Origin
                     selectedOrigin = card;
                     originInput.value = stationName;
-                    card.classList.add('selected-origin');
                 } else if (!selectedDestination && card !== selectedOrigin) {
                     // 2. Select Destination
                     selectedDestination = card;
                     destinationInput.value = stationName;
-                    card.classList.add('selected-destination');
                 } else {
                     // 3. Reset and select new origin
-                    stationCards.forEach(c => {
-                        c.classList.remove('selected-origin', 'selected-destination');
-                    });
                     selectedOrigin = card;
                     selectedDestination = null;
                     originInput.value = stationName;
                     destinationInput.value = '';
-                    card.classList.add('selected-origin');
                 }
-                updateButtonState();
+                updateUI();
             });
         });
 
@@ -293,6 +321,7 @@
         });
         
         updateIconColors();
+        updateUI(); // Initial UI update
       });
     </script>
 </body>
