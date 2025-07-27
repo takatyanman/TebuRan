@@ -229,6 +229,12 @@
       const toConfirmBtnG2 = document.querySelector('#screen-g2 .btn-primary'); // New selector for G2 button
 
       function updateG1UI() {
+          console.log("--- updateG1UI called ---");
+          console.log("selectedOrigin:", selectedOrigin ? selectedOrigin.dataset.stationName : "None");
+          console.log("selectedDestination:", selectedDestination ? selectedDestination.dataset.stationName : "None");
+          console.log("originInput.value:", originInput.value);
+          console.log("destinationInput.value:", destinationInput.value);
+
           // Update selection guide
           if (!selectedOrigin) {
               stationSelectionGuide.textContent = '出発駅を選択してください';
@@ -237,6 +243,7 @@
           } else {
               stationSelectionGuide.textContent = '選択完了';
           }
+          console.log("stationSelectionGuide:", stationSelectionGuide.textContent);
 
           // Update button state and error message
           if (selectedOrigin && selectedDestination) {
@@ -267,6 +274,8 @@
               toScheduleBtnG1.disabled = true;
               selectionErrorMessage.textContent = '出発駅と到着駅を選択してください。';
           }
+          console.log("toScheduleBtnG1.disabled:", toScheduleBtnG1.disabled);
+          console.log("selectionErrorMessage:", selectionErrorMessage.textContent);
 
           // Update card selection visual
           stationCards.forEach(card => {
@@ -277,6 +286,7 @@
                   card.classList.add('selected-destination');
               }
           });
+          console.log("--- End updateG1UI ---");
       }
 
       function updateIconColors() {
@@ -291,6 +301,11 @@
       }
 
       function handleStationCardClick(card) {
+          console.log("--- handleStationCardClick called ---");
+          console.log("Clicked card:", card.dataset.stationName);
+          console.log("Before click - selectedOrigin:", selectedOrigin ? selectedOrigin.dataset.stationName : "None");
+          console.log("Before click - selectedDestination:", selectedDestination ? selectedDestination.dataset.stationName : "None");
+
           const stationName = card.dataset.stationName;
 
           if (!selectedOrigin) {
@@ -308,7 +323,10 @@
               originInput.value = stationName;
               destinationInput.value = '';
           }
+          console.log("After click - selectedOrigin:", selectedOrigin ? selectedOrigin.dataset.stationName : "None");
+          console.log("After click - selectedDestination:", selectedDestination ? selectedDestination.dataset.stationName : "None");
           updateG1UI();
+          console.log("--- End handleStationCardClick ---");
       }
 
       function handleToScheduleButtonG1Click() {
