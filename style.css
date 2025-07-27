@@ -1,0 +1,523 @@
+:root {
+    --main-bg: #0B0E11;
+    --accent: #00C27E;
+    --light-bg: #F5F7F8;
+    --text-dark: #333333;
+    --text-light: #FFFFFF;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Noto Sans JP', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    background-color: var(--main-bg);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 430px; /* For iPhone 14 Pro Max like dimension */
+    height: 100vh;
+    max-height: 932px;
+    background-color: var(--main-bg);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    overflow: hidden;
+    position: relative;
+}
+
+.screen {
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.app-header {
+    padding: 24px 0 12px 0;
+}
+
+.app-header h1 {
+    font-family: var(--font-heading);
+    font-size: 20pt;
+    font-weight: 700;
+    margin: 0;
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px; /* Increased gap for better spacing */
+}
+
+.catch-copy p {
+    font-family: var(--font-body);
+    font-size: 18pt; /* Slightly larger for impact */
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.station-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 14pt;
+    font-weight: 400;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dark);
+    width: 20px;
+    height: 20px;
+}
+
+.input-with-icon input {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--light-bg);
+    border: none;
+    border-radius: 12px;
+    padding: 16px 16px 16px 48px;
+    font-family: var(--font-body);
+    font-size: 14pt;
+    color: var(--text-dark);
+}
+
+.input-with-icon input::placeholder {
+    color: #999;
+}
+
+.station-list-container {
+    background-color: #1c1f22;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.list-header {
+    font-size: 14pt;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+    color: var(--text-light);
+}
+
+.station-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.station-card {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    border-radius: 12px;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.06);
+    transition: all 200ms ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.station-card.selected-origin {
+    border-color: var(--accent);
+    background-color: #e0f8f0;
+}
+
+.station-card.selected-destination {
+    border-color: var(--accent);
+    background-color: #d4f4e6;
+}
+
+.station-card.unavailable {
+    background-color: #e0e0e0;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.station-card-main {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 16pt;
+    margin: 0;
+}
+
+.facility-icons i {
+    margin-left: 8px;
+}
+
+.facility-icons .available { color: #00C27E; }
+.facility-icons .partial { color: #FFD700; }
+.facility-icons .unavailable { color: #E74C3C; }
+
+.btn-primary[disabled] {
+    background-color: #555;
+    color: #999;
+    cursor: not-allowed;
+}
+
+.card-title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 16pt;
+    margin: 0 0 4px 0;
+}
+
+.card-subtitle {
+    font-size: 12pt;
+    color: #666;
+    margin: 0;
+}
+
+.history-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1px;
+    background-color: #333;
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.history-tabs button {
+    flex-grow: 1;
+    background-color: transparent;
+    border: none;
+    color: var(--text-light);
+    padding: 10px 20px;
+    font-family: var(--font-body);
+    font-size: 14pt;
+    border-radius: 10px;
+    transition: background-color 200ms ease;
+}
+
+.history-tabs button.tab-active {
+    background-color: var(--accent);
+    color: var(--text-light);
+}
+
+/* G2 Screen Styles */
+.calendar-strip {
+    display: flex;
+    justify-content: space-around;
+    background-color: #1c1f22; /* Slightly lighter than main BG */
+    padding: 8px;
+    border-radius: 12px;
+}
+
+.date-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: var(--text-light);
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 200ms ease;
+}
+
+.date-item.active {
+    background-color: var(--accent);
+}
+
+.date-item .day-of-week {
+    font-size: 12pt;
+    margin: 0;
+}
+
+.date-item .day {
+    font-family: var(--font-heading);
+    font-size: 16pt;
+    font-weight: 700;
+    margin: 4px 0 0 0;
+}
+
+.time-slots-container {
+    height: 300px; /* Fixed height for scrollable area */
+    overflow-y: auto;
+}
+
+.time-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.time-slot {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    border: 2px solid transparent;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 16pt;
+    font-weight: 700;
+    text-align: center;
+    position: relative;
+    transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.time-slot.selected {
+    background-color: var(--accent);
+    color: var(--text-light);
+    border-color: var(--accent);
+}
+
+.time-slot.unavailable {
+    background-color: #e0e0e0; /* Lighter gray for unavailable */
+    color: #999;
+    cursor: not-allowed;
+}
+
+.availability-dots {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.available { background-color: #00C27E; } /* ○ */
+.dot.partial { background-color: #FFD700; } /* △ */
+.dot.unavailable { background-color: #E74C3C; } /* × */
+
+.price-card {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.06);
+}
+
+.price-item {
+    text-align: center;
+}
+
+.price-label {
+    font-size: 14pt;
+    margin: 0 0 4px 0;
+}
+
+.price-value {
+    font-family: var(--font-heading);
+    font-size: 20pt;
+    font-weight: 700;
+    margin: 0;
+}
+
+.btn-primary {
+    background-color: var(--accent);
+    color: var(--text-light);
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-family: var(--font-body);
+    font-size: 16pt;
+    font-weight: 700;
+    width: 100%;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.06);
+    transition: background-color 200ms ease;
+}
+
+.btn-primary:active {
+    background-color: #00a86b; /* Darker accent */
+}
+
+/* G3 Modal Styles */
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    width: 100%;
+    box-sizing: border-box;
+    padding: 24px 16px 40px 16px; /* Extra padding at bottom for home indicator */
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0px -4px 16px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-title {
+    font-family: var(--font-heading);
+    font-size: 20pt;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
+
+.reservation-details {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 20px 0;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14pt;
+}
+
+.detail-label {
+    color: #666;
+}
+
+.detail-value {
+    font-weight: 700;
+}
+
+.modal-price-summary {
+    text-align: center;
+}
+
+.total-label {
+    font-size: 14pt;
+    margin: 0;
+}
+
+.total-value {
+    font-family: var(--font-heading);
+    font-size: 28pt;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 4px 0 0 0;
+}
+
+.btn-secondary {
+    background-color: #e0e0e0;
+    color: var(--text-dark);
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-family: var(--font-body);
+    font-size: 16pt;
+    font-weight: 700;
+    width: 100%;
+    margin-top: -8px; /* Reduce gap with primary button */
+}
+
+/* G4 Screen Styles */
+.qr-code-card {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.06);
+}
+
+.qr-card-title {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 16pt;
+    margin: 0;
+}
+
+.qr-code-image {
+    border-radius: 8px;
+    width: 200px;
+    height: 200px;
+}
+
+.reservation-id {
+    font-size: 12pt;
+    color: #666;
+    margin: 0;
+}
+
+.usage-details-card {
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.06);
+}
+
+.usage-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14pt;
+}
+
+.usage-detail-item i {
+    color: var(--accent);
+    width: 24px;
+    height: 24px;
+}
+
+.btn-danger {
+    background-color: #E74C3C;
+    color: var(--text-light);
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-family: var(--font-body);
+    font-size: 16pt;
+    font-weight: 700;
+    width: 100%;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.06);
+    transition: background-color 200ms ease;
+}
+
+.btn-danger:active {
+    background-color: #c0392b; /* Darker red */
+}
+
+
+

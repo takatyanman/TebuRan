@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テブラン予約アプリモック</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- G1: ホーム & 駅選択 -->
+        <main id="screen-g1" class="screen">
+            <header class="app-header">
+                <h1>Tebrarin</h1>
+            </header>
+            <div class="content" id="g1-content">
+                <div class="catch-copy">
+                    <p>手ぶらで、走る。</p>
+                    <p>新しい朝を、ここから。</p>
+                </div>
+
+                <div class="station-selector">
+                    <div class="input-group">
+                        <label for="origin-station">出発駅</label>
+                        <div class="input-with-icon">
+                            <i data-lucide="train"></i>
+                            <input type="text" id="origin-station" placeholder="下のリストから選択" readonly>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="destination-station">到着駅</label>
+                        <div class="input-with-icon">
+                            <i data-lucide="running"></i>
+                            <input type="text" id="destination-station" placeholder="下のリストから選択" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="station-list-container">
+                    <p class="list-header">駅を選択してください</p>
+                    <div class="station-cards">
+                        <div class="station-card" data-station-name="東京駅" data-locker-status="available" data-shower-status="available">
+                            <div class="station-card-main">
+                                <p class="card-title">東京駅</p>
+                                <div class="facility-icons">
+                                    <i data-lucide="locker"></i>
+                                    <i data-lucide="shower"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="station-card" data-station-name="新宿駅" data-locker-status="available" data-shower-status="partial">
+                            <div class="station-card-main">
+                                <p class="card-title">新宿駅</p>
+                                <div class="facility-icons">
+                                    <i data-lucide="locker"></i>
+                                    <i data-lucide="shower"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="station-card" data-station-name="品川駅" data-locker-status="unavailable" data-shower-status="unavailable">
+                            <div class="station-card-main">
+                                <p class="card-title">品川駅</p>
+                                <div class="facility-icons">
+                                    <i data-lucide="locker"></i>
+                                    <i data-lucide="shower"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn-primary" id="to-schedule-btn" disabled>スケジュール選択へ</button>
+
+            </div>
+        </main>
+
+        <!-- G2: スケジュール & 空き状況 (Initially Hidden) -->
+        <section id="screen-g2" class="screen" style="display: none;">
+            
+            <header class="app-header">
+                <h1>スケジュール</h1>
+            </header>
+            <div class="content">
+                <div class="calendar-strip">
+                    <div class="date-item"><p class="day-of-week">月</p><p class="day">28</p></div>
+                    <div class="date-item"><p class="day-of-week">火</p><p class="day">29</p></div>
+                    <div class="date-item active"><p class="day-of-week">水</p><p class="day">30</p></div>
+                    <div class="date-item"><p class="day-of-week">木</p><p class="day">31</p></div>
+                    <div class="date-item"><p class="day-of-week">金</p><p class="day">1</p></div>
+                </div>
+
+                <div class="time-slots-container">
+                    <div class="time-slots-grid">
+                        <button class="time-slot">07:00</button>
+                        <button class="time-slot selected">
+                            07:30
+                            <div class="availability-dots">
+                                <span class="dot available" title="ロッカー"></span>
+                                <span class="dot partial" title="シャワー"></span>
+                            </div>
+                        </button>
+                        <button class="time-slot">08:00</button>
+                        <button class="time-slot">08:30</button>
+                        <button class="time-slot unavailable">
+                            09:00
+                            <div class="availability-dots">
+                                <span class="dot unavailable" title="ロッカー"></span>
+                                <span class="dot unavailable" title="シャワー"></span>
+                            </div>
+                        </button>
+                        <button class="time-slot">09:30</button>
+                    </div>
+                </div>
+
+                <div class="price-card">
+                    <div class="price-item">
+                        <p class="price-label">料金</p>
+                        <p class="price-value">¥575</p>
+                    </div>
+                    <div class="price-item">
+                        <p class="price-label">予想所要時間</p>
+                        <p class="price-value">約63分</p>
+                    </div>
+                </div>
+
+                <button class="btn-primary">予約確認へ</button>
+            </div>
+            
+        </section>
+
+        <!-- G3: 予約確認モーダル (Initially Hidden) -->
+        <div id="screen-g3" class="modal-overlay" style="display: none;">
+            
+            <div class="modal-content">
+                <h2 class="modal-title">予約内容の確認</h2>
+                <div class="reservation-details">
+                    <div class="detail-item">
+                        <span class="detail-label">日時</span>
+                        <span class="detail-value">2025年7月30日(水) 07:30</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">出発</span>
+                        <span class="detail-value">東京駅</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">到着</span>
+                        <span class="detail-value">新宿駅</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">ロッカー</span>
+                        <span class="detail-value">○</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">シャワー</span>
+                        <span class="detail-value">△</span>
+                    </div>
+                </div>
+                <div class="modal-price-summary">
+                    <p class="total-label">お支払い金額</p>
+                    <p class="total-value">¥575</p>
+                </div>
+                <button class="btn-primary">予約を確定する</button>
+                <button class="btn-secondary">キャンセル</button>
+            </div>
+            
+        </div>
+
+        <!-- G4: My 予約（QR ロッカーキー） (Initially Hidden) -->
+        <section id="screen-g4" class="screen" style="display: none;">
+            
+            <header class="app-header">
+                <h1>My予約</h1>
+            </header>
+            <div class="content">
+                <div class="qr-code-card">
+                    <p class="qr-card-title">ロッカーキー</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=R1234567" alt="QR Code" class="qr-code-image">
+                    <p class="reservation-id">ID: R1234567</p>
+                </div>
+
+                <div class="usage-details-card">
+                    <div class="usage-detail-item">
+                        <i data-lucide="calendar"></i>
+                        <span>2025年7月30日(水) 07:30</span>
+                    </div>
+                    <div class="usage-detail-item">
+                        <i data-lucide="train"></i>
+                        <span>出発: 東京駅</span>
+                    </div>
+                    <div class="usage-detail-item">
+                        <i data-lucide="running"></i>
+                        <span>到着: 新宿駅</span>
+                    </div>
+                    <div class="usage-detail-item">
+                        <i data-lucide="locker"></i>
+                        <span>ロッカー: B-3</span>
+                    </div>
+                    <div class="usage-detail-item">
+                        <i data-lucide="shower"></i>
+                        <span>シャワー: No.5</span>
+                    </div>
+                </div>
+
+                <button class="btn-danger">予約をキャンセル</button>
+            </div>
+            
+        </section>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        lucide.createIcons();
+
+        const originInput = document.getElementById('origin-station');
+        const destinationInput = document.getElementById('destination-station');
+        const stationCards = document.querySelectorAll('.station-card');
+        const toScheduleBtn = document.getElementById('to-schedule-btn');
+
+        const screenG1 = document.getElementById('screen-g1');
+        const screenG2 = document.getElementById('screen-g2');
+
+        let selectedOrigin = null;
+        let selectedDestination = null;
+
+        function updateButtonState() {
+            if (selectedOrigin && selectedDestination) {
+                const originLocker = selectedOrigin.dataset.lockerStatus;
+                const originShower = selectedOrigin.dataset.showerStatus;
+                const destLocker = selectedDestination.dataset.lockerStatus;
+                const destShower = selectedDestination.dataset.showerStatus;
+
+                const isOriginOk = originLocker !== 'unavailable' && originShower !== 'unavailable';
+                const isDestOk = destLocker !== 'unavailable' && destShower !== 'unavailable';
+
+                if (isOriginOk && isDestOk) {
+                    toScheduleBtn.disabled = false;
+                } else {
+                    toScheduleBtn.disabled = true;
+                }
+            } else {
+                toScheduleBtn.disabled = true;
+            }
+        }
+
+        function updateIconColors() {
+            stationCards.forEach(card => {
+                const lockerIcon = card.querySelector('.facility-icons i[data-lucide="locker"]');
+                const showerIcon = card.querySelector('.facility-icons i[data-lucide="shower"]');
+                
+                lockerIcon.classList.add(card.dataset.lockerStatus);
+                showerIcon.classList.add(card.dataset.showerStatus);
+            });
+            lucide.createIcons(); // Re-render icons with new colors
+        }
+
+        stationCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const stationName = card.dataset.stationName;
+
+                if (!selectedOrigin) {
+                    // 1. Select Origin
+                    selectedOrigin = card;
+                    originInput.value = stationName;
+                    card.classList.add('selected-origin');
+                } else if (!selectedDestination && card !== selectedOrigin) {
+                    // 2. Select Destination
+                    selectedDestination = card;
+                    destinationInput.value = stationName;
+                    card.classList.add('selected-destination');
+                } else {
+                    // 3. Reset and select new origin
+                    stationCards.forEach(c => {
+                        c.classList.remove('selected-origin', 'selected-destination');
+                    });
+                    selectedOrigin = card;
+                    selectedDestination = null;
+                    originInput.value = stationName;
+                    destinationInput.value = '';
+                    card.classList.add('selected-origin');
+                }
+                updateButtonState();
+            });
+        });
+
+        toScheduleBtn.addEventListener('click', () => {
+            if (!toScheduleBtn.disabled) {
+                screenG1.style.display = 'none';
+                screenG2.style.display = 'block';
+            }
+        });
+        
+        updateIconColors();
+      });
+    </script>
+</body>
+</html>
