@@ -1,3 +1,4 @@
+/* Global Styles */
 :root {
     --main-bg: #0B0E11;
     --accent: #00C27E;
@@ -53,6 +54,7 @@ body {
     gap: 24px; /* Increased gap for better spacing */
 }
 
+/* G1 Screen Styles */
 .catch-copy p {
     font-family: var(--font-body);
     font-size: 18pt; /* Slightly larger for impact */
@@ -186,26 +188,29 @@ body {
 .facility-icons .partial { color: #FFD700; }
 .facility-icons .unavailable { color: #E74C3C; }
 
+.btn-primary {
+    background-color: var(--accent);
+    color: var(--text-light);
+    border: none;
+    border-radius: 12px;
+    padding: 18px;
+    font-family: var(--font-body);
+    font-size: 16pt;
+    font-weight: 700;
+    width: 100%;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.06);
+    transition: background-color 200ms ease;
+}
+
+.btn-primary:active {
+    background-color: #00a86b; /* Darker accent */
+}
+
 .btn-primary[disabled] {
     background-color: #555;
     color: #999;
     cursor: not-allowed;
 }
-
-.card-title {
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 16pt;
-    margin: 0 0 4px 0;
-}
-
-.card-subtitle {
-    font-size: 12pt;
-    color: #666;
-    margin: 0;
-}
-
-
 
 /* G2 Screen Styles */
 .calendar-strip {
@@ -321,24 +326,6 @@ body {
     font-size: 20pt;
     font-weight: 700;
     margin: 0;
-}
-
-.btn-primary {
-    background-color: var(--accent);
-    color: var(--text-light);
-    border: none;
-    border-radius: 12px;
-    padding: 18px;
-    font-family: var(--font-body);
-    font-size: 16pt;
-    font-weight: 700;
-    width: 100%;
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.06);
-    transition: background-color 200ms ease;
-}
-
-.btn-primary:active {
-    background-color: #00a86b; /* Darker accent */
 }
 
 /* G3 Modal Styles */
@@ -503,6 +490,3 @@ body {
 .btn-danger:active {
     background-color: #c0392b; /* Darker red */
 }
-
-
-
