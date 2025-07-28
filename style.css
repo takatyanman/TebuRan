@@ -180,7 +180,7 @@ body {
     margin: 0;
 }
 
-.facility-icons i {
+.facility-icons svg {
     margin-left: 8px;
 }
 
@@ -467,7 +467,7 @@ body {
     font-size: 14pt;
 }
 
-.usage-detail-item i {
+.usage-detail-item svg {
     color: var(--accent);
     width: 24px;
     height: 24px;
