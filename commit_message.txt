@@ -1,1 +1,1 @@
-Refactor: JavaScriptを別ファイルに分離
+Chore: Remove temporary commit message file
