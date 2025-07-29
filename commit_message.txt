@@ -1,0 +1,1 @@
+Refactor: JavaScriptを別ファイルに分離
